@@ -183,8 +183,6 @@ function stepOne() {
     document.querySelector(".deck_show").style.opacity = "1";
     document.querySelector(".deck_show").style.backgroundImage = `url('./assets/MythicCards/${folderColor}/${image}')`;
     currentStep.splice(indexStep, 1);
-    console.log(folderColor)
-    console.log(image)
     if (folderColor === 'green') {
         circle_green_1.textContent = --green1;
     }
