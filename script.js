@@ -26,16 +26,22 @@ const level_hard = document.querySelector('.level_hard');
 const level_very_hard = document.querySelector('.level_very-hard');
 
 const deck = document.querySelector(".deck");
+const choice = document.querySelector(".choise");
+const mix = document.querySelector(".mix");
 
 let difficulty;
 let ancient;
 let green1, green2, green3;
 let blue1, blue2, blue3;
 let brown1, brown2, brown3;
+let totalGreen = green1 + green2 + green3;
+let totalBrown = brown1 + brown2 + brown3;
+let totalBlue = blue1 + blue2 + blue3;
 let step1 = [];
 let step2 = [];
 let step3 = [];
 let cardActive;
+
 
 function steps(item) {
     green1 = ancientsData[item].firstStage.greenCards;
@@ -82,7 +88,6 @@ card_azathoth.onclick = function() {
             steps(item);
         }
     }
-    randomSteps();
 }
 
 card_cthulthu.onclick = function() {
@@ -94,7 +99,6 @@ card_cthulthu.onclick = function() {
             steps(item);
         }
     }
-    randomSteps();
 }
 
 card_iog_sothoth.onclick = function() {
@@ -106,7 +110,6 @@ card_iog_sothoth.onclick = function() {
             steps(item);
         }
     }
-    randomSteps();
 }
 
 card_snub_niggurath.onclick = function() {
@@ -118,21 +121,36 @@ card_snub_niggurath.onclick = function() {
             steps(item);
         }
     }
-    randomSteps();
 }
 
-// level_very_easy.onclick = function () {
-//     difficulty = this.className.split(" ")[1];
-//     console.log(difficulty)
-// }
+level_very_easy.onclick = function () {
+    difficulty = this.className.split(" ")[1];
+    console.log(difficulty)
+}
 
-deck.addEventListener('click', getCard);
+level_normal.onclick = function () {
+    difficulty = this.className.split(" ")[1];
+    console.log(difficulty)
+}
+
+function countCardDifficulty(color, difficulty) {
+    let difficultyArray = [];
+    for (let i in color) {
+        if (color[i].difficulty === difficulty) {
+            difficultyArray.push(color[i].cardFace)
+        }
+    }
+    return difficultyArray;
+}
 
 function randomSteps() {
     function randomCard (color, step) {
-        let cardFace = color[Math.floor(Math.random() * color.length)].cardFace
+        let cardFace;
+        let index;
+        index = Math.floor(Math.random() * color.length);
+        cardFace = color[index].cardFace
         if ((step1.indexOf(cardFace) === -1) && (step2.indexOf(cardFace) === -1) && (step3.indexOf(cardFace) === -1)) {
-            step.push(cardFace);
+             step.push(cardFace);
         } else randomCard(color, step)
     }
 
@@ -255,3 +273,7 @@ function stepThird() {
 function getCard() {
     stepOne();
 }
+
+
+deck.addEventListener('click', getCard);
+mix.addEventListener('click', randomSteps);
